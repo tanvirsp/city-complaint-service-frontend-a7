@@ -10,9 +10,7 @@ export default function GlobalLoading() {
 
       {/* Loading Text */}
       <div className="space-y-2 text-center">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          Loading RentNest...
-        </h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Loading...</h2>
 
         <p className="text-sm text-muted-foreground">
           Please wait while we prepare your experience.
