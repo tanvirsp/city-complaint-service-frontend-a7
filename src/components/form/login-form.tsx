@@ -13,14 +13,14 @@ import {
 import { loginSchema } from "@/validation";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import { useGoogleOAuth, useLogin } from "@/hooks";
+import { useLogin } from "@/hooks";
 import { useRouter } from "next/navigation";
 import { Spinner } from "../ui/spinner";
-import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 
 import { toast } from "sonner";
 import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
+import QuickDemoLogin from "../modules/quick-demo-login/QuickDemoLogin";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,9 +30,10 @@ export default function LoginForm() {
 
   const form = useForm({
     defaultValues: {
-      email: "testeradmin@gmail.com",
-      password: "Tester@admin12345",
+      email: "",
+      password: "",
     },
+
     validators: {
       onSubmit: loginSchema,
     },
@@ -147,6 +148,8 @@ export default function LoginForm() {
       <FieldSeparator>Or continue with</FieldSeparator>
 
       <GoogleLoginComponent />
+      <FieldSeparator>Or Quick Demo Login</FieldSeparator>
+      <QuickDemoLogin />
 
       <div className="text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}

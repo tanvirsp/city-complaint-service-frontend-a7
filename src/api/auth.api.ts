@@ -18,10 +18,10 @@ export function verifyAccount(payload: IVerifyAccountPayload) {
   return apiClient("/auth/verify-email", { method: "POST", body: payload });
 }
 
-// export function userLogout() {
-//   return apiClient("/auth/logout", { method: "POST" });
-// }
+export function userLogout() {
+  return apiClient("/auth/logout", { method: "POST" });
+}
 
-// export function getMe() {
-//   return apiClient("/user/me");
-// }
+export function getMe() {
+  return apiClient("/user/me");
+}

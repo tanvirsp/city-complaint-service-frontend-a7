@@ -10,6 +10,7 @@ export default function GoogleLoginComponent() {
   const { mutate: googleLogin } = useGoogleOAuth();
 
   const handleGoogleSuccess = (credentialResponse: { credential?: string }) => {
+    console.log("Crediential", credentialResponse);
     const idToken = credentialResponse.credential;
 
     if (!idToken) {
