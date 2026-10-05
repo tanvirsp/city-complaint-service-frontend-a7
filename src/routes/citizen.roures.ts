@@ -1,29 +1,23 @@
 export const citizenRoutes = [
   {
-    title: "Complaints",
+    title: "Dashboard",
     url: "#",
     items: [
       {
-        title: "All Complaints",
-        url: "#",
+        title: "Overview",
+        url: "/citizen",
       },
       {
-        title: " Structure",
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Staff",
-    url: "#",
-    items: [
-      {
-        title: "Add A Staff",
-        url: "#",
+        title: "My Complaints",
+        url: "/citizen/my-complaints",
       },
       {
-        title: "All Staff",
-        url: "#",
+        title: " My Requested Services",
+        url: "/citizen/my-requested-services",
+      },
+      {
+        title: "Payment History",
+        url: "/citizen/my-payment-history",
       },
     ],
   },

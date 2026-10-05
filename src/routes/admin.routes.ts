@@ -1,20 +1,32 @@
 export const adminRoutes = [
   {
-    title: "Complaints",
+    title: "Overview",
     url: "#",
     items: [
       {
-        title: "All Complaints",
-        url: "#",
+        title: "Dashboard",
+        url: "/admin",
       },
       {
-        title: " Structure",
-        url: "#",
+        title: "All Complaints",
+        url: "/admin/all-complaints",
+      },
+      {
+        title: "Complaints Category",
+        url: "/admin/category",
+      },
+      {
+        title: "All Services",
+        url: "/admin/services",
+      },
+      {
+        title: "Request Services",
+        url: "/admin/request-services",
       },
     ],
   },
   {
-    title: "Staff",
+    title: "Request Services",
     url: "#",
     items: [
       {

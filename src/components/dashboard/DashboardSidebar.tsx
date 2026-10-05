@@ -17,6 +17,7 @@ import { UserRole } from "@/types";
 import { adminRoutes, citizenRoutes, staffRoutes } from "@/routes";
 import { SidebarItems } from "@/types/sidebar.type";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const sidebarRoutes: Partial<Record<UserRole, SidebarItems>> = {
   ADMIN: adminRoutes,
@@ -30,7 +31,9 @@ export function DashboardSidebar({ role }: { role: UserRole }) {
   return (
     <Sidebar>
       <SidebarHeader>
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
@@ -42,7 +45,7 @@ export function DashboardSidebar({ role }: { role: UserRole }) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={pathname === item.url}>
-                      <a href={item.url}>{item.title}</a>
+                      <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
