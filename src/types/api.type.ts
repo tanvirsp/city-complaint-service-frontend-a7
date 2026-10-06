@@ -12,3 +12,10 @@ export interface IApiResponse<T> {
     };
   };
 }
+
+export interface IApiResponseWithOutPagination<T> {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T;
+}

@@ -8,10 +8,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ComplaintsReviewSheet from "./complaints-review-sheet";
-import { useGetAllComplaints } from "@/hooks/admin.hooks";
+import {
+  useGetAllComplaints,
+  useSuspenseGetAllComplaints,
+} from "@/hooks/admin.hooks";
+import { IComplaintParams } from "@/types";
+import { Dispatch, SetStateAction } from "react";
+import { Button } from "@/components/ui/button";
 
-const ComplaintsRequestTable = () => {
-  const { data } = useGetAllComplaints();
+interface Props extends IComplaintParams {
+  handleReview: any;
+}
+
+const ComplaintsRequestTable = ({ handleReview, ...params }: Props) => {
+  const { data } = useSuspenseGetAllComplaints(params);
 
   const allComplaint = data?.data?.data || [];
 
@@ -32,8 +42,10 @@ const ComplaintsRequestTable = () => {
               <TableCell>{complaint.title}</TableCell>
               <TableCell>{complaint.location}</TableCell>
               <TableCell>{complaint.category.name}</TableCell>
-              <TableCell className="">
-                <ComplaintsReviewSheet />
+              <TableCell>
+                <Button onClick={() => handleReview(complaint)}>
+                  Quick View
+                </Button>
               </TableCell>
             </TableRow>
           ))}

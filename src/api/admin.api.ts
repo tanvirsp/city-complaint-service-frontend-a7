@@ -1,6 +1,26 @@
 import apiClient from "@/lib/apiClient";
-import { Complaint, IApiResponse } from "@/types";
+import {
+  Complaint,
+  IApiResponse,
+  IApiResponseWithOutPagination,
+  IAssignStaffToComplaint,
+  IComplaintParams,
+} from "@/types";
+import { IStaffData } from "@/types/staff.type";
 
-export function getAllComplaints() {
-  return apiClient<IApiResponse<Complaint[]>>("/admin/all-complaint");
+export function getAllComplaints(params: IComplaintParams) {
+  return apiClient<IApiResponse<Complaint[]>>("/admin/all-complaint", {
+    params,
+  });
+}
+
+export function getAllStaff() {
+  return apiClient<IApiResponseWithOutPagination<IStaffData[]>>("/admin/staff");
+}
+
+export function assignStaffToComplaint(payload: IAssignStaffToComplaint) {
+  return apiClient("/admin/complaint/assign-staff", {
+    method: "POST",
+    body: payload,
+  });
 }

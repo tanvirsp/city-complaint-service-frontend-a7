@@ -9,7 +9,6 @@ export type ComplaintStatus =
   | "RESOLVED"
   | "REJECTED";
 
-export type Priority = "LOW" | "MEDIUM" | "HIGH";
 export type CategoryType = "COMPLAINT" | "SERVICE";
 
 export interface Complaint {
@@ -18,7 +17,7 @@ export interface Complaint {
   categoryId: string;
   description: string;
   location: string;
-  priority: Priority;
+  priority: ComplaintPriarity;
   status: ComplaintStatus;
   beforeImageUrl: null | string;
   beforeImagePublicId: null | string;
@@ -29,12 +28,12 @@ export interface Complaint {
   updatedAt: string;
   userId: string;
   staffId: null | string;
-  staff?: Staff;
-  user: User;
-  category: Category;
+  staff?: IStaff;
+  user: IUser;
+  category: ICategory;
 }
 
-export interface User {
+export interface IUser {
   id: string;
   name: string;
   email: string;
@@ -51,7 +50,7 @@ export interface User {
   updatedAt: string;
 }
 
-export interface Staff {
+export interface IStaff {
   id: string;
   name: string;
   email: string;
@@ -67,10 +66,21 @@ export interface Staff {
   userId: string;
 }
 
-export interface Category {
+export interface ICategory {
   id: string;
   name: string;
   type: CategoryType;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface IComplaintParams {
+  status?: ComplaintStatus;
+  page?: number;
+  limit?: number;
+}
+
+export interface IAssignStaffToComplaint {
+  complaintId: string;
+  staffId: string;
 }
