@@ -1,12 +1,12 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ComplaintsRequestTable from "./complaints-request-table";
 import { Suspense, useState } from "react";
 import { Complaint, ComplaintStatus, IComplaintParams } from "@/types";
-import ComplaintsReviewSheet from "./complaints-review-sheet";
+import ServiceRequestTable from "./service-request-table";
+import ServiceReviewSheet from "./service-request-sheet";
 
-const ComplaintsRequestTabs = () => {
+const ServicesRequestTabs = () => {
   const [tab, setTab] = useState<"ALL" | ComplaintStatus>("ALL");
   const [page, setPage] = useState(1);
   const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(
@@ -35,14 +35,14 @@ const ComplaintsRequestTabs = () => {
         </TabsList>
       </Tabs>
       <Suspense fallback={"Loading"}>
-        <ComplaintsRequestTable
+        <ServiceRequestTable
           {...queryParams}
           handleReview={setSelectedComplaint}
           setPage={setPage}
         />
       </Suspense>
 
-      <ComplaintsReviewSheet
+      <ServiceReviewSheet
         selectedComplaint={selectedComplaint}
         onClose={() => setSelectedComplaint(null)}
       />
@@ -50,4 +50,4 @@ const ComplaintsRequestTabs = () => {
   );
 };
 
-export default ComplaintsRequestTabs;
+export default ServicesRequestTabs;

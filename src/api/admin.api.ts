@@ -32,3 +32,9 @@ export function rejectComplaint(payload: IRejectComplaint) {
     body: payload,
   });
 }
+
+export function getAllRequestSrvices(params: IComplaintParams) {
+  return apiClient<IApiResponse<Complaint[]>>("/admin/all-service-request", {
+    params,
+  });
+}

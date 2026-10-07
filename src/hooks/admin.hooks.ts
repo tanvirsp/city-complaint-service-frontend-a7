@@ -1,6 +1,7 @@
 import {
   assignStaffToComplaint,
   getAllComplaints,
+  getAllRequestSrvices,
   getAllStaff,
   rejectComplaint,
 } from "@/api/admin.api";
@@ -37,5 +38,19 @@ export function useAssignStaffToComplaint() {
 export function useRejectComplaint() {
   return useMutation({
     mutationFn: rejectComplaint,
+  });
+}
+
+export function useGetAllRequestSrvices(params: IComplaintParams) {
+  return useQuery({
+    queryKey: ["request-services", params],
+    queryFn: () => getAllRequestSrvices(params),
+  });
+}
+
+export function useSuspenseGetAllRequestSrvices(params: IComplaintParams) {
+  return useSuspenseQuery({
+    queryKey: ["request-services", params],
+    queryFn: () => getAllRequestSrvices(params),
   });
 }

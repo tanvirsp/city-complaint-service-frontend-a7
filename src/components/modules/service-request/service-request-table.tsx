@@ -7,11 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import ComplaintsReviewSheet from "./complaints-review-sheet";
-import {
-  useGetAllComplaints,
-  useSuspenseGetAllComplaints,
-} from "@/hooks/admin.hooks";
+import { useSuspenseGetAllRequestSrvices } from "@/hooks/admin.hooks";
 import { Complaint, IComplaintParams } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
@@ -23,17 +19,11 @@ interface Props extends IComplaintParams {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-const ComplaintsRequestTable = ({
-  handleReview,
-  setPage,
-  ...params
-}: Props) => {
-  const { data } = useSuspenseGetAllComplaints(params);
+const ServiceRequestTable = ({ handleReview, setPage, ...params }: Props) => {
+  const { data } = useSuspenseGetAllRequestSrvices(params);
 
   const allComplaint = data?.data?.data || [];
   const totalPages = data?.data?.meta?.totalPages ?? 0;
-
-  console.log(data?.data?.meta);
 
   return (
     <>
@@ -49,7 +39,7 @@ const ComplaintsRequestTable = ({
           </TableHeader>
           <TableBody>
             {allComplaint.length === 0 ? (
-              <EmptyTable colSpan={4} title="Complaint" />
+              <EmptyTable colSpan={4} title="Request Service" />
             ) : (
               allComplaint.map((complaint) => (
                 <TableRow key={complaint.id}>
@@ -84,4 +74,4 @@ const ComplaintsRequestTable = ({
   );
 };
 
-export default ComplaintsRequestTable;
+export default ServiceRequestTable;
