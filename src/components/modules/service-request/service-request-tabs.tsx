@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import { Complaint, ComplaintStatus, IComplaintParams } from "@/types";
 import ServiceRequestTable from "./service-request-table";
 import ServiceReviewSheet from "./service-request-sheet";
+import TableLoading from "@/components/shared/TableLoading";
 
 const ServicesRequestTabs = () => {
   const [tab, setTab] = useState<"ALL" | ComplaintStatus>("ALL");
@@ -34,7 +35,7 @@ const ServicesRequestTabs = () => {
           <TabsTrigger value="ALL">All</TabsTrigger>
         </TabsList>
       </Tabs>
-      <Suspense fallback={"Loading"}>
+      <Suspense fallback={<TableLoading />}>
         <ServiceRequestTable
           {...queryParams}
           handleReview={setSelectedComplaint}

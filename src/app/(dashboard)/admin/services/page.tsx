@@ -1,8 +1,10 @@
+import ServiceTable from "@/components/modules/services/service-table";
+
 const ServicePage = () => {
   return (
-    <div>
-      <h1>Service Page</h1>
-    </div>
+    <section className="p-5">
+      <ServiceTable />
+    </section>
   );
 };
 
