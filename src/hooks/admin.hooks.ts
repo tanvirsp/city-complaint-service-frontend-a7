@@ -2,6 +2,7 @@ import {
   assignStaffToComplaint,
   getAllComplaints,
   getAllStaff,
+  rejectComplaint,
 } from "@/api/admin.api";
 import { IComplaintParams } from "@/types";
 import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
@@ -30,5 +31,11 @@ export function useGetAllStaff() {
 export function useAssignStaffToComplaint() {
   return useMutation({
     mutationFn: assignStaffToComplaint,
+  });
+}
+
+export function useRejectComplaint() {
+  return useMutation({
+    mutationFn: rejectComplaint,
   });
 }

@@ -5,6 +5,7 @@ import {
   IApiResponseWithOutPagination,
   IAssignStaffToComplaint,
   IComplaintParams,
+  IRejectComplaint,
 } from "@/types";
 import { IStaffData } from "@/types/staff.type";
 
@@ -20,7 +21,14 @@ export function getAllStaff() {
 
 export function assignStaffToComplaint(payload: IAssignStaffToComplaint) {
   return apiClient("/admin/complaint/assign-staff", {
-    method: "POST",
+    method: "PATCH",
+    body: payload,
+  });
+}
+
+export function rejectComplaint(payload: IRejectComplaint) {
+  return apiClient("/admin/complaint/reject", {
+    method: "PATCH",
     body: payload,
   });
 }

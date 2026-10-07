@@ -84,3 +84,8 @@ export interface IAssignStaffToComplaint {
   complaintId: string;
   staffId: string;
 }
+
+export interface IRejectComplaint {
+  complaintId: string;
+  rejectReason: string;
+}

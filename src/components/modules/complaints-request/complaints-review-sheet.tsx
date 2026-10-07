@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -18,10 +19,15 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
-import { useGetAllStaff } from "@/hooks/admin.hooks";
+import {
+  useAssignStaffToComplaint,
+  useGetAllStaff,
+  useRejectComplaint,
+} from "@/hooks/admin.hooks";
 import { Complaint, ComplaintStatus } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   selectedComplaint: Complaint | null;
@@ -30,25 +36,75 @@ interface Props {
 
 const ComplaintsReviewSheet = ({ selectedComplaint, onClose }: Props) => {
   const [confirmRejection, setConfirmRejection] = useState(false);
-  const [rejectionReason, setRejectionReason] = useState("");
+  const [rejectReason, setRejectReason] = useState("");
   const [staffId, setStaffId] = useState("");
 
-  const { data } = useGetAllStaff();
-  const staffData = data?.data || [];
+  const { mutate: assignStaff, isPending: assignPending } =
+    useAssignStaffToComplaint();
+  const { mutate: rejectComplaint, isPending: rejectPending } =
+    useRejectComplaint();
 
-  const handleReject = () => {
-    setConfirmRejection(true);
-  };
+  const { data } = useGetAllStaff();
+
+  const staffData = data?.data || [];
 
   const handleClose = () => {
     setConfirmRejection(false);
-    setRejectionReason("");
+    setRejectReason("");
     onClose();
   };
 
   const handleAcceptComplaint = () => {
-    console.log("staffId ", staffId);
-    console.log("com Id ", selectedComplaint?.id);
+    if (!staffId) {
+      toast.error("Staff ID missing, please select a staff");
+      return;
+    }
+
+    if (!selectedComplaint) {
+      toast.error("Complant data missing");
+      return;
+    }
+
+    const assignData = {
+      staffId,
+      complaintId: selectedComplaint.id,
+    };
+
+    assignStaff(assignData, {
+      onSuccess: (res) => {
+        toast.success("Complant accepted successfully");
+        console.log("Success", res);
+        handleClose();
+      },
+      onError: (error) => {
+        toast.error("Something went wrong");
+        console.log("Error", error);
+      },
+    });
+  };
+
+  const handleRejectComplaint = () => {
+    if (!selectedComplaint) {
+      toast.error("Complant data missing");
+      return;
+    }
+
+    const rejectData = {
+      rejectReason,
+      complaintId: selectedComplaint.id,
+    };
+
+    rejectComplaint(rejectData, {
+      onSuccess: (res) => {
+        toast.success("Complant rejected successfully");
+        console.log("Success", res);
+        handleClose();
+      },
+      onError: (error) => {
+        toast.error("Something went wrong");
+        console.log("Error", error);
+      },
+    });
   };
 
   return (
@@ -110,9 +166,10 @@ const ComplaintsReviewSheet = ({ selectedComplaint, onClose }: Props) => {
         <SheetFooter>
           {confirmRejection ? (
             <div className="flex flex-col gap-3">
+              <Label>Note</Label>
               <Textarea
-                value={rejectionReason}
-                onChange={(e) => setRejectionReason(e.target.value)}
+                value={rejectReason}
+                onChange={(e) => setRejectReason(e.target.value)}
               />
 
               <div className="flex gap-2">
@@ -125,11 +182,11 @@ const ComplaintsReviewSheet = ({ selectedComplaint, onClose }: Props) => {
                   Cancel
                 </Button>
                 <Button
-                  // onClick={() => handleReviewAction("REJECTED")}
+                  onClick={handleRejectComplaint}
                   variant="destructive"
                   size="lg"
                   className="flex-1"
-                  disabled={!rejectionReason}
+                  disabled={!rejectReason}
                 >
                   Confirm Rejection
                 </Button>
@@ -138,7 +195,7 @@ const ComplaintsReviewSheet = ({ selectedComplaint, onClose }: Props) => {
           ) : (
             <div className="flex gap-2 justify-center mt-4">
               <Button
-                onClick={handleReject}
+                onClick={() => setConfirmRejection(true)}
                 size={"lg"}
                 variant={"destructive"}
                 className="flex-1"
