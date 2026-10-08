@@ -6,3 +6,9 @@ export interface ServiceItem {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IUpdateService {
+  serviceId: string;
+  name: string;
+  serviceFee: number;
+}

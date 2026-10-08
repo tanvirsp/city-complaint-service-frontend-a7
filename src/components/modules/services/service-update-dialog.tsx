@@ -17,14 +17,32 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
-import { useCreateNewService } from "@/hooks/service.hooks";
+import {
+  useCreateNewService,
+  useGetServicesById,
+  useUpdateService,
+} from "@/hooks/service.hooks";
 import { useForm } from "@tanstack/react-form";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { toast } from "sonner";
 
-const ServiceModal = () => {
-  const { mutate: create, isPending } = useCreateNewService();
-  const [open, setOpen] = useState(false);
+interface Props {
+  openDialog: boolean;
+  setOpenDialog: Dispatch<SetStateAction<boolean>>;
+  selectedItem: string;
+}
+
+const ServiceUpdateDialog = ({
+  openDialog,
+  setOpenDialog,
+  selectedItem,
+}: Props) => {
+  const { mutate: updateService, isPending } = useUpdateService();
+
+  const { data: serviceData, isPending: servicePending } = useGetServicesById(
+    selectedItem,
+    openDialog && !!selectedItem,
+  );
 
   const form = useForm({
     defaultValues: {
@@ -37,14 +55,15 @@ const ServiceModal = () => {
     },
     onSubmit: ({ value }) => {
       const serviceData = {
+        serviceId: selectedItem,
         name: value.name,
         serviceFee: Number(value.serviceFee),
       };
 
-      create(serviceData, {
+      updateService(serviceData, {
         onSuccess: (res) => {
-          toast.success("New paid service created  Success");
-          setOpen(false);
+          toast.success("Service Update Successfully");
+          setOpenDialog(false);
         },
         onError: (err) => {
           toast.error("Something went wrong");
@@ -53,15 +72,24 @@ const ServiceModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (serviceData?.data) {
+      form.setFieldValue("name", serviceData.data.name);
+      form.setFieldValue("serviceFee", String(serviceData.data.serviceFee));
+    }
+  }, [serviceData, form]);
+
+  if (servicePending) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <form>
-        <DialogTrigger asChild>
-          <Button>Create New Service</Button>
-        </DialogTrigger>
+        <DialogTrigger asChild></DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Create New Paid Service</DialogTitle>
+            <DialogTitle>Update Paid Service</DialogTitle>
           </DialogHeader>
 
           <form
@@ -125,7 +153,9 @@ const ServiceModal = () => {
                 <DialogClose asChild>
                   <Button variant="destructive">Cancel</Button>
                 </DialogClose>
-                <Button type="submit">Create Service</Button>
+                <Button type="submit">
+                  {isPending ? "Updating ..." : "Update Service"}
+                </Button>
               </DialogFooter>
             </FieldGroup>
           </form>
@@ -135,4 +165,4 @@ const ServiceModal = () => {
   );
 };
 
-export default ServiceModal;
+export default ServiceUpdateDialog;
