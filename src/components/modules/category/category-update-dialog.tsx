@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
+import { useGetCategoryById, useUpdateCategory } from "@/hooks/category.hooks";
 import {
   useCreateNewService,
   useGetServicesById,
@@ -32,14 +33,14 @@ interface Props {
   selectedItem: string;
 }
 
-const ServiceUpdateDialog = ({
+const CategoryUpdateDialog = ({
   openDialog,
   setOpenDialog,
   selectedItem,
 }: Props) => {
-  const { mutate: updateService, isPending } = useUpdateService();
+  const { mutate: updateCategory, isPending } = useUpdateCategory();
 
-  const { data: serviceData, isPending: servicePending } = useGetServicesById(
+  const { data: categoryData } = useGetCategoryById(
     selectedItem,
     openDialog && !!selectedItem,
   );
@@ -54,15 +55,14 @@ const ServiceUpdateDialog = ({
       //onSubmit: loginSchema,
     },
     onSubmit: ({ value }) => {
-      const serviceData = {
-        serviceId: selectedItem,
+      const UpdateData = {
+        id: selectedItem,
         name: value.name,
-        serviceFee: Number(value.serviceFee),
       };
 
-      updateService(serviceData, {
+      updateCategory(UpdateData, {
         onSuccess: (res) => {
-          toast.success("Service Update Successfully");
+          toast.success("Category Update Successfully");
           setOpenDialog(false);
         },
         onError: (err) => {
@@ -73,11 +73,10 @@ const ServiceUpdateDialog = ({
   });
 
   useEffect(() => {
-    if (serviceData?.data) {
-      form.setFieldValue("name", serviceData.data.name);
-      form.setFieldValue("serviceFee", String(serviceData.data.serviceFee));
+    if (categoryData?.data) {
+      form.setFieldValue("name", categoryData.data.name);
     }
-  }, [serviceData, form]);
+  }, [categoryData, form]);
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -85,7 +84,7 @@ const ServiceUpdateDialog = ({
         <DialogTrigger asChild></DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Update Paid Service</DialogTitle>
+            <DialogTitle>Update Category</DialogTitle>
           </DialogHeader>
 
           <form
@@ -120,31 +119,6 @@ const ServiceUpdateDialog = ({
                 }}
               </form.Field>
 
-              <form.Field name="serviceFee">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Service Fee</FieldLabel>
-                      <Input
-                        id={field.name}
-                        name={field.name}
-                        type="number"
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        onBlur={field.handleBlur}
-                        value={field.state.value}
-                        autoComplete="off"
-                        aria-invalid={isInvalid}
-                      />
-                      {isInvalid && (
-                        <FieldError errors={field.state.meta.errors} />
-                      )}
-                    </Field>
-                  );
-                }}
-              </form.Field>
               <DialogFooter>
                 <DialogClose asChild>
                   <Button variant="destructive">Cancel</Button>
@@ -161,4 +135,4 @@ const ServiceUpdateDialog = ({
   );
 };
 
-export default ServiceUpdateDialog;
+export default CategoryUpdateDialog;
