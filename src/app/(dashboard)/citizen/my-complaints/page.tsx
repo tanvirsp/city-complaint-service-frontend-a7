@@ -1,8 +1,11 @@
+import CitizenMyComplaintTabs from "@/components/modules/citizen-my-complaint/citizen-my-complaint-tabs";
+
 const MyComplaintsPage = () => {
   return (
-    <div>
-      <h1>MyComplaintsPage</h1>
-    </div>
+    <section className="p-5">
+      <h1 className="mb-3">MyComplaintsPage</h1>
+      <CitizenMyComplaintTabs />
+    </section>
   );
 };
 

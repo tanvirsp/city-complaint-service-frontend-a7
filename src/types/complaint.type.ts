@@ -89,3 +89,15 @@ export interface IRejectComplaint {
   complaintId: string;
   rejectReason: string;
 }
+
+export interface ICreateComplaint {
+  complaintImage: File;
+  data: ComplaintCreateData;
+}
+
+export interface ComplaintCreateData {
+  title: string;
+  categoryId: string;
+  description: string;
+  location: string;
+}
