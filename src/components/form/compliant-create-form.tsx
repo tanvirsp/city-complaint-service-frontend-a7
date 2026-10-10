@@ -17,11 +17,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { complaintCreateZodSchema } from "@/validation";
+import { Spinner } from "../ui/spinner";
+import { useRouter } from "next/navigation";
 
 const CompliantCreateform = () => {
   const { mutate: createComplaint, isPending } = useCreateComplaint();
   const { data } = useGetAllCategory();
   const categories = data?.data || [];
+
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -33,9 +38,19 @@ const CompliantCreateform = () => {
     },
 
     validators: {
-      //onSubmit: loginSchema,
+      onSubmit: complaintCreateZodSchema,
     },
     onSubmit: ({ value }) => {
+      if (!value.complaintImage) {
+        toast.error("Please upload a preview image");
+        return;
+      }
+
+      if (!value.categoryId) {
+        toast.error("Please select a category");
+        return;
+      }
+
       const data = {
         title: value.title,
         description: value.description,
@@ -51,7 +66,7 @@ const CompliantCreateform = () => {
         {
           onSuccess: (res) => {
             toast.success("Complaint Created Success");
-            //   router.push("/");
+            router.push("/citizen/my-complaints");
           },
           onError: (err) => {
             toast.error("Something went wrong");
@@ -232,7 +247,15 @@ const CompliantCreateform = () => {
             }}
           </form.Field>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {isPending ? (
+              <>
+                <Spinner /> submitting
+              </>
+            ) : (
+              "Submit"
+            )}
+          </Button>
         </FieldGroup>
       </form>
     </div>

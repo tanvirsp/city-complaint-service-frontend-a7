@@ -1,10 +1,11 @@
-import React from "react";
+import StaffTable from "@/components/modules/staff/staff-table";
 
 const StaffPage = () => {
   return (
-    <div>
-      <h1>Staff Page</h1>
-    </div>
+    <section className="p-5">
+      <h1 className="text-lg mb-3">Our Service Staff</h1>
+      <StaffTable />
+    </section>
   );
 };
 

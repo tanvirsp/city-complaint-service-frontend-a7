@@ -1,28 +1,14 @@
 export const staffRoutes = [
   {
-    title: "Complaints",
+    title: "Overview",
     url: "#",
     items: [
       {
-        title: "All Complaints",
+        title: "All Assign Complaints",
         url: "#",
       },
       {
-        title: " Structure",
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Staff",
-    url: "#",
-    items: [
-      {
-        title: "Add A Staff",
-        url: "#",
-      },
-      {
-        title: "All Staff",
+        title: " All Assign Paid Services",
         url: "#",
       },
     ],

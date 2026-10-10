@@ -31,11 +31,11 @@ export const adminRoutes = [
     items: [
       {
         title: "Add A Staff",
-        url: "#",
+        url: "/admin/staff-add",
       },
       {
         title: "All Staff",
-        url: "#",
+        url: "/admin/staff",
       },
     ],
   },

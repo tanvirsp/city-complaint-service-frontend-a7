@@ -101,3 +101,8 @@ export interface ComplaintCreateData {
   description: string;
   location: string;
 }
+
+export interface IAssignStaffToRequestService {
+  serviceRequestId: string;
+  staffId: string;
+}

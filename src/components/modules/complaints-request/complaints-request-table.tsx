@@ -44,6 +44,7 @@ const ComplaintsRequestTable = ({
               <TableHead className="min-w-[100px]">Name</TableHead>
               <TableHead>Location</TableHead>
               <TableHead>Category</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -56,6 +57,7 @@ const ComplaintsRequestTable = ({
                   <TableCell>{complaint.title}</TableCell>
                   <TableCell>{complaint.location}</TableCell>
                   <TableCell>{complaint.category.name}</TableCell>
+                  <TableCell>{complaint.status}</TableCell>
                   <TableCell>
                     {complaint.status === "PENDING" ? (
                       <Button onClick={() => handleReview(complaint)}>
