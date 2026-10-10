@@ -5,11 +5,11 @@ export const staffRoutes = [
     items: [
       {
         title: "All Assign Complaints",
-        url: "#",
+        url: "/staff/assign-complaint",
       },
       {
         title: " All Assign Paid Services",
-        url: "#",
+        url: "/staff/assign-service-request",
       },
     ],
   },

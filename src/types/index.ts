@@ -5,3 +5,4 @@ export * from "./api.type";
 export * from "./service.type";
 export * from "./citizen.type";
 export * from "./payment.type";
+export * from "./staff.type";
