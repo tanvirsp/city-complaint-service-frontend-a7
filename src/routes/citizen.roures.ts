@@ -20,6 +20,10 @@ export const citizenRoutes = [
         url: "/citizen/my-requested-services",
       },
       {
+        title: "Request Service",
+        url: "/citizen/request-service",
+      },
+      {
         title: "Payment History",
         url: "/citizen/my-payment-history",
       },

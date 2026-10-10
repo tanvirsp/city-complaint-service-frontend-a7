@@ -3,7 +3,7 @@ import CitizenMyComplaintTabs from "@/components/modules/citizen-my-complaint/ci
 const MyComplaintsPage = () => {
   return (
     <section className="p-5">
-      <h1 className="mb-3">MyComplaintsPage</h1>
+      <h1 className="mb-3 text-xl">My Complaints</h1>
       <CitizenMyComplaintTabs />
     </section>
   );

@@ -1,7 +1,10 @@
+import CitizenMyServicesTabs from "@/components/modules/citizen-my-services/citizen-my-services-tabs";
+
 const MyRequestedServices = () => {
   return (
-    <section>
-      <h1>MyRequestedServices</h1>
+    <section className="p-5">
+      <h1 className="mb-3 text-xl">My Paid Services</h1>
+      <CitizenMyServicesTabs />
     </section>
   );
 };

@@ -6,7 +6,7 @@ const CreateComplaintPage = () => {
     <section className="p-6 w-3xl mx-auto">
       <Card className="p-6">
         <div className="text-center">
-          <h3 className="text-2xl">Create a complaint</h3>
+          <h3 className="text-xl">Create a complaint</h3>
         </div>
         <CompliantCreateform />
       </Card>

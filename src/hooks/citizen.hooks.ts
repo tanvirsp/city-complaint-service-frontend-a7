@@ -1,10 +1,19 @@
 import {
   createComplaint,
+  createServiceRequest,
   getComplaintDetails,
   getMyComplaint,
+  getMyRequestServices,
+  getRequestServicDetails,
+  makePayment,
 } from "@/api/citizen.api";
 import { MyComplaintParams } from "@/types/citizen.type";
-import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 export function useGetAllMyComplaint(params: MyComplaintParams) {
   return useQuery({
@@ -34,43 +43,46 @@ export function useCreateComplaint() {
   });
 }
 
-// export function useCreateNewService() {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: createNewService,
-//     onSuccess: () => {
-//       // Invalidate and refetch
-//       queryClient.invalidateQueries({ queryKey: ["services"] });
-//     },
-//   });
-// }
+// Request Servies hooks
 
-// export function useUpdateService() {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: updateService,
-//     onSuccess: () => {
-//       // Invalidate and refetch
-//       queryClient.invalidateQueries({ queryKey: ["services"] });
-//     },
-//   });
-// }
+export function useGetAllMyRequestServices(params: MyComplaintParams) {
+  return useQuery({
+    queryKey: ["my-request-service", params],
+    queryFn: () => getMyRequestServices(params),
+  });
+}
 
-// export function useDeleteService() {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: deleteService,
-//     onSuccess: () => {
-//       // Invalidate and refetch
-//       queryClient.invalidateQueries({ queryKey: ["services"] });
-//     },
-//   });
-// }
+export function useSuspenseGetAllMyRequestServices(params: MyComplaintParams) {
+  return useSuspenseQuery({
+    queryKey: ["my-request-service", params],
+    queryFn: () => getMyRequestServices(params),
+  });
+}
 
-// export function useGetServicesById(serviceId: string, enabled: boolean) {
-//   return useQuery({
-//     queryKey: ["services-by-id", serviceId],
-//     queryFn: () => getServiceById(serviceId),
-//     enabled: enabled && !!serviceId,
-//   });
-// }
+export function useGetRequestServiceDetails(id: string, enabled: boolean) {
+  return useQuery({
+    queryKey: ["services-request-by-id", id],
+    queryFn: () => getRequestServicDetails(id),
+    enabled: enabled && !!id,
+  });
+}
+
+export function useCreateServiceRequest() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createServiceRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-request-service"] });
+    },
+  });
+}
+
+export function useMakePayment() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: makePayment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-payment"] });
+    },
+  });
+}
