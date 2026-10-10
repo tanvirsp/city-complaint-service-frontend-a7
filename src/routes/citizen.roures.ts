@@ -1,10 +1,10 @@
 export const citizenRoutes = [
   {
-    title: "Dashboard",
+    title: "Overview",
     url: "#",
     items: [
       {
-        title: "Overview",
+        title: "Dashboard",
         url: "/citizen",
       },
       {

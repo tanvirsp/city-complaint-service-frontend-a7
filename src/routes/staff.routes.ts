@@ -4,6 +4,10 @@ export const staffRoutes = [
     url: "#",
     items: [
       {
+        title: "Dashboard",
+        url: "/staff",
+      },
+      {
         title: "All Assign Complaints",
         url: "/staff/assign-complaint",
       },

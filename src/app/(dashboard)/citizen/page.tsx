@@ -1,5 +1,12 @@
-const CitizenDashboard = () => {
-  return <div>Citizen Dashboard</div>;
+import CitizenDashboard from "@/components/dashboard/CitizenDashboard";
+
+const CitizenDashboardPage = () => {
+  return (
+    <>
+      <h1>Dasobard Citizen</h1>
+      <CitizenDashboard />
+    </>
+  );
 };
 
-export default CitizenDashboard;
+export default CitizenDashboardPage;
