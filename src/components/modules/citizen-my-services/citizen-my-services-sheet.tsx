@@ -138,7 +138,8 @@ const CitizenMyServiceReviewSheet = ({
               <div>
                 <p className="text-sm text-muted-foreground">Requested On</p>
                 <p className="font-medium">
-                  {formatDate(serviceRequestData?.createdAt)}
+                  {serviceRequestData?.createdAt &&
+                    formatDate(serviceRequestData?.createdAt)}
                 </p>
               </div>
             </div>
@@ -155,7 +156,8 @@ const CitizenMyServiceReviewSheet = ({
                 <div>
                   <p className="text-sm text-muted-foreground">Service Fee</p>
                   <p className="mt-1 text-xl font-bold">
-                    {formatAmount(serviceRequestData?.serviceFee)}
+                    {serviceRequestData?.serviceFee &&
+                      formatAmount(serviceRequestData?.serviceFee)}
                   </p>
                 </div>
 

@@ -1,11 +1,5 @@
+import { PaymentStatus } from "./citizen.type";
 import { ComplaintStatus } from "./complaint.type";
-
-export type PaymentStatus =
-  | "UNPAID"
-  | "PAID"
-  | "FAILED"
-  | "CANCELLED"
-  | "REFUNDED";
 
 export interface IPaymentDetails {
   id: string;
