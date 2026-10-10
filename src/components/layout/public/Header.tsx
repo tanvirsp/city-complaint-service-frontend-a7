@@ -125,8 +125,10 @@ export default function Header() {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-              <SheetTitle className="text-left">Navigation</SheetTitle>
+            <SheetContent side="right" className="w-[280px] sm:w-[320px] p-8">
+              <SheetTitle className="text-left">
+                <Logo />
+              </SheetTitle>
 
               <nav className="mt-8 flex flex-col gap-6">
                 {navLinks}
